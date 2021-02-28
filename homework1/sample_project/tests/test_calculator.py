@@ -1,8 +1,6 @@
-import pytest  # installed the required library, changed configuration to pytest
+import pytest
 
 from EPAM_HW.homework1.sample_project.calculator import calc
-
-# correctly connected the required module
 
 
 @pytest.mark.parametrize(
