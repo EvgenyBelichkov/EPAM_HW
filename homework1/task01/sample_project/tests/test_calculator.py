@@ -1,6 +1,6 @@
 import pytest
 
-from EPAM_HW.homework1.task01.sample_project.calculator import calc
+from homework1.task01.sample_project.calculator import calc
 
 
 @pytest.mark.parametrize(

@@ -2,7 +2,7 @@ from collections.abc import Sequence
 
 import pytest
 
-from EPAM_HW.homework1.task02.Fibonacci_sequence import check_fibonacci
+from homework1.task02.Fibonacci_sequence import check_fibonacci
 
 
 @pytest.mark.parametrize(
