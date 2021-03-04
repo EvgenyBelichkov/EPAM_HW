@@ -10,7 +10,9 @@ from collections.abc import Sequence
 
 def check_fibonacci(data: Sequence) -> bool:
     for i in range(len(data) - 2):
-        if data[i] + data[i + 1] == data[i + 2]:
+        if i < 0:
+            return False
+        if data[i] + data[i + 1] == data[i + 2] and data[i] != data[i + 1]:
             continue
         else:
             return False
