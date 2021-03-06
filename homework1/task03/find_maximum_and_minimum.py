@@ -12,20 +12,18 @@ from typing import Tuple
 
 
 def scan(file_name: str) -> Tuple[int, int]:
+    minimum = None
+    maximum = None
     with open(file_name) as fi:
-        lst = fi.readlines()
-        elements = list()
-        for index in range(len(lst)):
-            el = int(lst[index].strip("\n"))
-            elements.append(el)
-    result = list()
-    for i in elements:
-        if len(result) == 0:
-            result.append(i)
-            result.append(i)
-        if i < result[0]:
-            result[0] = i
-        if i > result[1]:
-            result[1] = i
-    maximum_and_minimum = (result[0], result[1])
+        for line in fi:
+            el = int(line.strip("\n"))
+            if minimum is None:
+                minimum = el
+            if maximum is None:
+                maximum = el
+            if el < minimum:
+                minimum = el
+            if el > maximum:
+                maximum = el
+    maximum_and_minimum = (minimum, maximum)
     return maximum_and_minimum
