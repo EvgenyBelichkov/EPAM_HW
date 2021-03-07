@@ -7,6 +7,8 @@ Examples:
     result = 16
 """
 
+from typing import List
+
 
 def find_maximal_subarray_sum(nums: List[int], k: int) -> int:
     sum_list = []
