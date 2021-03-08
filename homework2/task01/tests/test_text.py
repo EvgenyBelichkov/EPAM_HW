@@ -2,13 +2,7 @@ import os
 
 import pytest
 
-from homework2.task01.text_counter import (
-    count_non_ascii_chars,
-    count_punctuation_chars,
-    get_longest_diverse_words,
-    get_most_common_non_ascii_char,
-    get_rarest_char,
-)
+from homework2.task01 import text_counter
 
 
 @pytest.mark.parametrize(
@@ -47,7 +41,7 @@ from homework2.task01.text_counter import (
     ],
 )
 def test_longest_diverse_words(file_name, expected_result):
-    assert get_longest_diverse_words(file_name) == expected_result
+    assert text_counter.get_longest_diverse_words(file_name) == expected_result
 
 
 @pytest.mark.parametrize(
@@ -58,7 +52,7 @@ def test_longest_diverse_words(file_name, expected_result):
     ],
 )
 def test_rarest_char(file_name, expected_result):
-    assert get_rarest_char(file_name) == expected_result
+    assert text_counter.get_rarest_char(file_name) == expected_result
 
 
 @pytest.mark.parametrize(
@@ -69,7 +63,7 @@ def test_rarest_char(file_name, expected_result):
     ],
 )
 def test_count_punctuation_chars(file_name, expected_result):
-    assert count_punctuation_chars(file_name) == expected_result
+    assert text_counter.count_punctuation_chars(file_name) == expected_result
 
 
 @pytest.mark.parametrize(
@@ -80,7 +74,7 @@ def test_count_punctuation_chars(file_name, expected_result):
     ],
 )
 def test_non_ascii_chars(file_name, expected_result):
-    assert count_non_ascii_chars(file_name) == expected_result
+    assert text_counter.count_non_ascii_chars(file_name) == expected_result
 
 
 @pytest.mark.parametrize(
@@ -91,4 +85,4 @@ def test_non_ascii_chars(file_name, expected_result):
     ],
 )
 def test_most_common_non_ascii_chars(file_name, expected_result):
-    assert get_most_common_non_ascii_char(file_name) == expected_result
+    assert text_counter.get_most_common_non_ascii_char(file_name) == expected_result
