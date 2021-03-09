@@ -6,6 +6,7 @@ We guarantee, that all A, B, C, D have same length of N where 0 ≤ N ≤ 1000.
 """
 
 import itertools
+from collections import defaultdict
 from typing import List
 
 
@@ -13,16 +14,13 @@ def check_sum_of_four(
     a: List[int], b: List[int], c: List[int], d: List[int]
 ) -> int:  # code with separates lists on 2 parts
     result = 0
-    sum_first_pairs = {}
+    sum_first_pairs = defaultdict(int)
     for i in a:
         for j in b:
-            if i + j not in sum_first_pairs.keys():
-                sum_first_pairs[i + j] = 1
-            else:
-                sum_first_pairs[i + j] += 1
+            sum_first_pairs[i + j] += 1
     for k in c:
         for l in d:
-            if (k + l) * (-1) in sum_first_pairs.keys():
+            if (k + l) * (-1) in sum_first_pairs:
                 result += sum_first_pairs[(k + l) * (-1)]
     return result
 
@@ -30,13 +28,10 @@ def check_sum_of_four(
 def itertools_1(
     a: List[int], b: List[int], c: List[int], d: List[int]
 ) -> int:  # first code using itertools
-    sum_itertools = {}
+    sum_itertools = defaultdict(int)
     result = 0
     for i in itertools.product(a, b):
-        if i[0] + i[1] not in sum_itertools:
-            sum_itertools[i[0] + i[1]] = 1
-        else:
-            sum_itertools[i[0] + i[1]] += 1
+        sum_itertools[i[0] + i[1]] += 1
     for j in itertools.product(c, d):
         if (j[0] + j[1]) * (-1) in sum_itertools:
             result += sum_itertools[(j[0] + j[1]) * (-1)]

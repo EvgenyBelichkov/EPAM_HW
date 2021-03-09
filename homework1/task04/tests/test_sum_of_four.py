@@ -19,3 +19,4 @@ from homework1.task04 import sum_of_four
 )
 def test_sum(lst1, lst2, lst3, lst4, result):
     assert sum_of_four.check_sum_of_four(lst1, lst2, lst3, lst4) == result
+    assert sum_of_four.itertools_1(lst1, lst2, lst3, lst4) == result
