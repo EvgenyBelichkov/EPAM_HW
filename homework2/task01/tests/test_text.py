@@ -11,31 +11,31 @@ from homework2.task01 import text_counter
         [
             os.path.join(os.path.dirname(__file__), "text1.txt"),
             [
-                "asdfghjklzxcv/nmbv",
+                "asdfghjklzxcv",
                 "Qwertyuiop",
                 "zxcv",
                 "vbnm",
                 "ееппааамм",
+                "nmbv",
                 "gtyu",
                 "asd",
                 "ghoooo",
-                "ghj",
-                "ujt",
+                "holo",
             ],
         ],
         [
-            os.path.join(os.path.dirname(__file__), "data.txt"),
+            os.path.join(os.path.dirname(__file__), "text2.txt"),
             [
-                "Bev\\u00f6lkerungsabschub,",
-                "unmi\\u00dfverst\\u00e4ndliche",
-                "Werkst\\u00e4ttenlandschaft",
-                "Machtbewu\\u00dftsein,",
-                "Selbstverst\\u00e4ndlich",
-                "Entz\\u00fcndbarkeit.",
-                "Werkst\\u00e4ttenlandschaft",
-                "r\\u00e9sistance-Bewegungen,",
-                "Zahlenverh\\u00e4ltnis-",
-                "\\u00fcberw\\u00e4ltigend",
+                "RRЕееПпппАаааМмммRRR",
+                "as",
+                "ad",
+                "af",
+                "ag",
+                "ah",
+                "aj",
+                "ak",
+                "al",
+                "az",
             ],
         ],
     ],
@@ -48,7 +48,10 @@ def test_longest_diverse_words(file_name, expected_result):
     "file_name, expected_result",
     [
         [os.path.join(os.path.dirname(__file__), "text1.txt"), "w, e, r, i, /"],
-        [os.path.join(os.path.dirname(__file__), "data.txt"), "(, )"],
+        [
+            os.path.join(os.path.dirname(__file__), "text2.txt"),
+            "s, d, f, g, h, j, k, l, z, x",
+        ],
     ],
 )
 def test_rarest_char(file_name, expected_result):
@@ -59,7 +62,7 @@ def test_rarest_char(file_name, expected_result):
     "file_name, expected_result",
     [
         [os.path.join(os.path.dirname(__file__), "text1.txt"), 10],
-        [os.path.join(os.path.dirname(__file__), "data.txt"), 8277],
+        [os.path.join(os.path.dirname(__file__), "text2.txt"), 22],
     ],
 )
 def test_count_punctuation_chars(file_name, expected_result):
@@ -70,7 +73,7 @@ def test_count_punctuation_chars(file_name, expected_result):
     "file_name, expected_result",
     [
         [os.path.join(os.path.dirname(__file__), "text1.txt"), 9],
-        [os.path.join(os.path.dirname(__file__), "data.txt"), 0],
+        [os.path.join(os.path.dirname(__file__), "text2.txt"), 15],
     ],
 )
 def test_non_ascii_chars(file_name, expected_result):
@@ -80,8 +83,8 @@ def test_non_ascii_chars(file_name, expected_result):
 @pytest.mark.parametrize(
     "file_name, expected_result",
     [
-        [os.path.join(os.path.dirname(__file__), "text1.txt"), "е, п, м"],
-        [os.path.join(os.path.dirname(__file__), "data.txt"), "None"],
+        [os.path.join(os.path.dirname(__file__), "text1.txt"), "а"],
+        [os.path.join(os.path.dirname(__file__), "text2.txt"), "п, а, м"],
     ],
 )
 def test_most_common_non_ascii_chars(file_name, expected_result):
