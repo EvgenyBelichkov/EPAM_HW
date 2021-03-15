@@ -8,7 +8,11 @@ class Filter:
         self.functions = functions
 
     def apply(self, data):
-        return [item for item in data if all([i(item) for i in self.functions])]
+        return [
+            item
+            for item in data
+            if all([i(item) for i in self.functions]) and len(self.functions) > 0
+        ]
 
 
 def make_filter(**keywords):
@@ -19,7 +23,7 @@ def make_filter(**keywords):
     for key, value in keywords.items():
 
         def keyword_filter_func(item):
-            return item[key] == value
+            return key in item and item[key] == value
 
         filter_funcs.append(keyword_filter_func)
     return Filter(filter_funcs)
@@ -39,4 +43,5 @@ sample_data = [
 # positive_even = Filter([lambda a: a % 2 == 0, lambda a: a > 0, lambda a: isinstance(a, int)])
 # print(positive_even.apply(range(100)))
 
-print(make_filter().apply(sample_data))
+# print(make_filter().apply(sample_data))
+print(make_filter(name="Bill").apply(sample_data))
