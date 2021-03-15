@@ -38,11 +38,3 @@ sample_data = [
     },
     {"is_dead": True, "kind": "parrot", "type": "bird", "name": "polly"},
 ]
-
-
-# positive_even = Filter([lambda a: a % 2 == 0, lambda a: a > 0, lambda a: isinstance(a, int)])
-# print(positive_even.apply(range(10)))
-
-print(make_filter().apply(sample_data))
-print(make_filter(name="Bill").apply(sample_data))
-# print(make_filter(name="Bill", kind = 'parrot').apply(sample_data))
