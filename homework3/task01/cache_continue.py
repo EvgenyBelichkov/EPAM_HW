@@ -25,7 +25,7 @@ def f():
 """
 
 
-def cache(times: int):
+def cache_func(times: int):
     elements = {}
 
     def wrap(func):
@@ -45,28 +45,3 @@ def cache(times: int):
         return timer
 
     return wrap
-
-
-@cache(times=2)
-def cache(fun):
-    cache_dict = dict()
-
-    def memory(*args):
-        if args in cache_dict:
-            return cache_dict[args]
-        result = fun(*args)
-        cache_dict[args] = result
-        return result
-
-    return memory
-
-
-# def fun1(a):
-#     return a ** 2
-#
-#
-# some = [2]
-# print(cache(fun1)(*some))
-# print(cache(fun1)(*some))
-# print(cache(fun1)(*some))
-# print(cache(fun1)(*some))
