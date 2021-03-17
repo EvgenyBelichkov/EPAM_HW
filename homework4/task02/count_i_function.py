@@ -19,12 +19,13 @@ You will learn:
 59
 * https://docs.python.org/3/library/urllib.request.html#urllib.request.urlopen
 """
-import requests
+import urllib.request
 
 
 def getting_html_text(url: str):
     try:
-        text = requests.get(url).text
+        s = []
+        text = urllib.request.urlopen(url).read().decode("utf-8")
         return text
     except ValueError:
         raise ValueError(f"Unreachable {url}")
@@ -39,4 +40,4 @@ def count_dots_on_i(url: str) -> int:
     return s
 
 
-# count_dots_on_i('http/')
+print(count_dots_on_i("https://example.com/"))
