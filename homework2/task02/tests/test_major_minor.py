@@ -1,16 +1,20 @@
-from typing import List, Tuple
+from collections import namedtuple
 
 import pytest
 
-from homework2.task02 import major_and_minor
+from homework2.task02 import finding_value
+
+data = namedtuple("data", ["sequence", "expected_result"])
+examples = [
+    data([3, 2, 3], (3, 2)),
+    data([2, 2, 1, 1, 1, 2, 2], (2, 1)),
+    data([1, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4], (4, 1)),
+]
 
 
-@pytest.mark.parametrize(
-    "inp, expected_result",
-    [
-        [[3, 2, 3], (3, 2)],
-        [[2, 2, 1, 1, 1, 2, 2], (2, 1)],
-    ],
-)
-def test_major_minor(inp, expected_result):
-    assert major_and_minor.major_and_minor_elem(inp) == expected_result
+@pytest.mark.parametrize("input_sequence", examples)
+def test_of_finding_major_and_minor_value_from_sequence(input_sequence):
+    assert (
+        finding_value.major_and_minor_elem(input_sequence.sequence)
+        == input_sequence.expected_result
+    )
