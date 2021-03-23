@@ -2,7 +2,7 @@ from collections import namedtuple
 
 import pytest
 
-from homework2.task02 import finding_value
+from homework2.task02.finding_value import major_and_minor_elem
 
 data = namedtuple("data", ["sequence", "expected_result"])
 examples = [
@@ -15,6 +15,5 @@ examples = [
 @pytest.mark.parametrize("input_sequence", examples)
 def test_of_finding_major_and_minor_value_from_sequence(input_sequence):
     assert (
-        finding_value.major_and_minor_elem(input_sequence.sequence)
-        == input_sequence.expected_result
+        major_and_minor_elem(input_sequence.sequence) == input_sequence.expected_result
     )
