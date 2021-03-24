@@ -8,11 +8,7 @@ class Filter:
         self.functions = functions
 
     def apply(self, data):
-        return [
-            item
-            for item in data
-            if all([i(item) for i in self.functions]) and len(self.functions) > 0
-        ]
+        return [item for item in data if all(i(item) for i in self.functions)]
 
 
 def make_filter(**keywords):
@@ -22,19 +18,11 @@ def make_filter(**keywords):
     filter_funcs = []
     for key, value in keywords.items():
 
-        def keyword_filter_func(item):
-            return key in item and item[key] == value
+        def returning_function(key_, value_):
+            def keyword_filter_func(data):
+                return key_ in data and data[key_] == value_
 
-        filter_funcs.append(keyword_filter_func)
+            return keyword_filter_func
+
+        filter_funcs.append(returning_function(key, value))
     return Filter(filter_funcs)
-
-
-sample_data = [
-    {
-        "name": "Bill",
-        "last_name": "Gilbert",
-        "occupation": "was here",
-        "type": "person",
-    },
-    {"is_dead": True, "kind": "parrot", "type": "bird", "name": "polly"},
-]
