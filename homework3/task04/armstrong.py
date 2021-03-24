@@ -1,5 +1,5 @@
 """
-Armstrong number is a number that is the sum of its own digits each raised to the power of the number of digits.
+Armstrong number is  a number that is the sum of its own digits each raised to the power of the number of digits.
 https://en.wikipedia.org/wiki/Narcissistic_number
 Examples:
 - 9 is an Armstrong number, 9 = 9^1 = 9
