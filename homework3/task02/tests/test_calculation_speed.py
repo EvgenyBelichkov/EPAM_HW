@@ -1,5 +1,4 @@
 import time
-from multiprocessing import Pool
 
 import pytest
 
@@ -17,8 +16,7 @@ def test_speed_of_calculation(lst):
     finish = time.time()
     time_slow_calculate = finish - start
     start_fast_calculate = time.time()
-    with Pool(500) as calk:
-        sum(calk.map(calculation.slow_calculate, lst))
+    calculation.updated_slow_calculate(calculation.slow_calculate, lst)
     finish_fast_calculate = time.time()
     time_fast_calculate = finish_fast_calculate - start_fast_calculate
     assert time_fast_calculate < time_slow_calculate

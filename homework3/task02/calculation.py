@@ -22,8 +22,7 @@ import hashlib
 import random
 import struct
 import time
-
-# from multiprocessing import Pool
+from multiprocessing import Pool
 
 
 def slow_calculate(value):
@@ -33,13 +32,12 @@ def slow_calculate(value):
     return sum(struct.unpack("<" + "B" * len(data), data))
 
 
-# Code located below this line you can use to make slow_calculate function faster.
-# To checking this approach you can see test 'test_calculation_speed'
+def updated_slow_calculate(fun, lst):
+    with Pool(500) as calk:
+        result = sum(calk.map(fun, lst))
+    return result
 
-# def updated_slow_calculate(fun):
-#     with Pool(500) as calk:
-#         result = sum(calk.map(fun, lst))
-#     return result
 
-# lst = [i for i in range(501)]
-# updated_slow_calculate(slow_calculate)
+if __name__ == "__main__":
+    lst = [i for i in range(501)]
+    print(updated_slow_calculate(slow_calculate, lst))
