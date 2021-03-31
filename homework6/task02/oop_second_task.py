@@ -46,17 +46,40 @@ from collections import defaultdict
 
 
 class Homework:
+    """This is a class that takes information about homework from :class:'Teacher'
+    (text, deadline) and keep it in attributes (text, dl, created)
+    :param text: text of homework
+    :param dl: quantity days to complete homework
+    """
+
     def __init__(self, text, dl):
+        """Constructor method"""
         self.text = text
         self.deadline = datetime.timedelta(days=dl)
         self.created = datetime.datetime.now()
 
     def is_active(self):
+        """Methods checks if the task execution time has expired
+        :return: `True` if deadline has not come, `False` otherwise
+        :rtype: bool
+        """
         return self.created + self.deadline > datetime.datetime.now()
 
 
 class HomeworkResult:
+    """This is a class that can take :class:`Homework' object, :class:`Student' object
+    and solution in string representation and keep information in attributes (solution,
+    author, created).
+    :param homework: for :class:`Homework' object. If object isn't correct - raising
+    error with message 'You gave a not Homework object'.
+    :param solution: stores solution as a string.
+    :param student: stores the :class:`Student' object.
+    :raises [TypeError]: [raising error with message
+    'You gave a not Homework object']
+    """
+
     def __init__(self, homework=None, solution=None, student=None):
+        """Constructor method"""
         if isinstance(homework, Homework):
             self.homework = homework
         else:
@@ -67,11 +90,26 @@ class HomeworkResult:
 
 
 class Student:
+    """This is a class that takes and keep first name and last name of student.
+    Thanks to method 'do_homework' you can check status of homework.
+    :param first_name: first name of student
+    :param last_name: last name of student"""
+
     def __init__(self, first_name, last_name):
+        """Constructor method"""
         self.first_name = first_name
         self.last_name = last_name
 
     def do_homework(self, homework=None, solution=None, student=None):
+        """Method take :class:`Homework' object, :class:`Student' object, solution
+        and if homework is active return :class:'HomeworkResult'. Otherwise rise error.
+        :param homework: for :class:`Homework' object.
+        :param solution: stores solution as a string.
+        :param student: stores the :class:`Student' object.
+        :raises [DeadlineError]: [if homework out of deadline]
+        :return: return :class:'HomeworkResult'
+        :rtype: :class:'HomeworkResult'
+        """
         if homework.is_active():
             return HomeworkResult(homework, solution, student)
         else:
@@ -79,16 +117,39 @@ class Student:
 
 
 class Teacher(Student):
+    """Class inherited from class :class:`Student'.This is a class that take
+    and keep first name and last name of teacher. Class can pass information
+    to :class:'Homework' to create homework object, collect solutions and
+    reset results from dictionary.
+    :param first_name: first name of teacher
+    :param last_name: last name of teacher"""
+
     homework_done = defaultdict(list)
 
     def __init__(self, first_name, last_name):
+        """Constructor method"""
         super().__init__(first_name, last_name)
 
     @staticmethod
     def create_homework(text, dl):
+        """Method takes the text of the task and the number of days for this task,
+        returns :class:'Homework' object.
+        :param text: text of the task
+        :param dl: quantity days to complete homework
+        :return: return :class:`Homework` object
+        :rtype: :class:`Homework` object
+        """
         return Homework(text, dl)
 
     def check_homework(self, homeworkresult):
+        """Method takes  :class:'HomeworkResult' object and checking solution. If solution
+        is correct - it will be added to dictionary 'homework_done' and return True
+        (guaranteed absence of duplicate results for each task). Otherwise will
+        return False.
+        :param homeworkresult: :class:'HomeworkResult' object.
+        :return: `True` if solution is right, `False` otherwise
+        :rtype: bool
+        """
         homework = homeworkresult.homework
         if (
             len(homeworkresult.solution) > 5
@@ -101,6 +162,11 @@ class Teacher(Student):
 
     @classmethod
     def reset_results(cls, homework=None):
+        """If method would takes :class:'Homework' object as argument, it
+        will remove only the results of this task from homework_done,
+        if method would take :class:`NoneType` object, it will completely
+        reset homework_done.
+        :param homework: :class:'HomeworkResult' object."""
         if homework is None:
             cls.homework_done = defaultdict(list)
         else:
@@ -108,4 +174,6 @@ class Teacher(Student):
 
 
 class DeadlineError(Exception):
+    """Additional Error class """
+
     pass
