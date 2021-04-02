@@ -1,8 +1,10 @@
+from unittest import mock
 from unittest.mock import Mock
 
 import pytest
 
 from homework4.task02 import count_i_function
+from homework4.task02.count_i_function import getting_html_text
 
 
 @pytest.mark.parametrize("url", ["https/example.nice-example.com/", "word"])
@@ -11,8 +13,11 @@ def test_function_that_counting_i_with_error(url):
         count_i_function.count_dots_on_i(url)
 
 
-def test_function_that_counting_i_with_just_mock():
-    count_i_function.getting_html_text = Mock(return_value="privet")
+@mock.patch(
+    "homework4.task02.count_i_function.getting_html_text",
+    mock.MagicMock(return_value="privet"),
+)
+def test_function_that_counting_i_with_mock_patch():
     assert count_i_function.count_dots_on_i("https://google.com/") == 1
 
 
