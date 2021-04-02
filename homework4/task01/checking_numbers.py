@@ -21,14 +21,19 @@ You will learn:
 **** https://docs.python.org/3/tutorial/errors.html#raising-exceptions
 """
 
+import os.path
+
 
 def checking_function(file_path):
-    with open(file_path) as document:
-        first_line = document.readline().strip()
-        try:
-            if 1 <= float(first_line) < 3:
-                return True
-            else:
-                return False
-        except ValueError:
-            raise ValueError
+    if os.path.exists(file_path):
+        with open(file_path) as document:
+            first_line = document.readline()
+            try:
+                if 1 <= float(first_line) < 3:
+                    return True
+                else:
+                    return False
+            except ValueError:
+                raise
+    else:
+        raise ValueError
