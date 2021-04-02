@@ -24,31 +24,33 @@ def fixture():
 
 
 def test_of_checking_filter1(fixture):
-    data = fixture
-    assert changing_filter.make_filter(name="Bill").apply(data) == [data[0]]
+    assert changing_filter.make_filter(name="Bill").apply(fixture) == [fixture[0]]
 
 
 def test_of_checking_filter2(fixture):
-    data = fixture
     assert (
-        changing_filter.make_filter(name="polly", last_name="Gilbert").apply(data) == []
+        changing_filter.make_filter(name="polly", last_name="Gilbert").apply(fixture)
+        == []
     )
 
 
 def test_of_checking_filter3(fixture):
-    data = fixture
-    assert changing_filter.make_filter(name="polly", type="bird").apply(data) == [
-        data[1]
+    assert changing_filter.make_filter(name="polly", type="bird").apply(fixture) == [
+        fixture[1]
     ]
 
 
 def test_of_checking_filter4(fixture):
-    data = fixture
     assert (
-        changing_filter.make_filter(name="polly", last_name="Gilbert").apply(data) == []
+        changing_filter.make_filter(name="polly", last_name="Gilbert").apply(fixture)
+        == []
     )
 
 
 def test_of_checking_filter5(fixture):
-    data = fixture
-    assert changing_filter.make_filter(not_exist_param="polly").apply(data) == []
+    assert changing_filter.make_filter(not_exist_param="polly").apply(fixture) == []
+
+
+def test_against_late_binding():
+    data = [dict(a=1, b=1), dict(a=1, b=2)]
+    assert changing_filter.make_filter(b=1, a=1).apply(data) != data
