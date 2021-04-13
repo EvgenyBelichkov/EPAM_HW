@@ -1,6 +1,6 @@
 import pytest
 
-from homework7.task02.comparing_words import backspace_compare
+from homework7.task02.comparing_words import backspace_compare_version3
 
 
 @pytest.mark.parametrize(
@@ -15,4 +15,4 @@ from homework7.task02.comparing_words import backspace_compare
     ],
 )
 def test_backspace_compare_function(first_word, second_word, expected_result):
-    assert backspace_compare(first_word, second_word) == expected_result
+    assert backspace_compare_version3(first_word, second_word) == expected_result
