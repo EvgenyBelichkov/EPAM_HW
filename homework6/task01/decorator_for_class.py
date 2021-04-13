@@ -11,19 +11,20 @@ reset_instances_counter - сбросить счетчик экземпляров
 
 def instances_counter(cls):
     class ModifiedUser(cls):
-        instance = 0
-
-        def init_counter(cls):
+        @classmethod
+        def creating_counter(cls):
             if not "instance" in cls.__dict__:
                 cls.instance = 0
 
         def __init__(self, *args, **kwargs):
-            self.init_counter()
+            self.creating_counter()
             super().__init__(*args, **kwargs)
             self.__class__.instance += 1
 
         @classmethod
         def get_created_instances(cls):
+            if not "instance" in cls.__dict__:
+                return 0
             return cls.instance
 
         @classmethod
@@ -33,8 +34,3 @@ def instances_counter(cls):
             return current_value
 
     return ModifiedUser
-
-
-@instances_counter
-class User:
-    pass
