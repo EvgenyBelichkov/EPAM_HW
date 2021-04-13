@@ -5,12 +5,13 @@ of this element in the tree.
 Tree can only contains basic structures like:
     str, list, tuple, dict, set, int, bool
 """
+from collections.abc import MutableMapping
 from typing import Any
 
 
 def find_occurrences(tree: dict, element: Any) -> int:
     number_of_occurrences = 0
-    if isinstance(tree, dict):
+    if isinstance(tree, MutableMapping):
         tree = tree.values()
     for value in tree:
         if value == element:
