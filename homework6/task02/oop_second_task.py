@@ -89,16 +89,26 @@ class HomeworkResult:
         self.created = datetime.datetime.now()
 
 
-class Student:
-    """This is a class that takes and keep first name and last name of student.
+class Person:
+    """This is the class, that realise construction methods
+    for :class:'Student' and :class:'Teacher'"""
+
+    def __init__(self, first_name, last_name):
+        """Constructor method"""
+        self.first_name = first_name
+        self.last_name = last_name
+
+
+class Student(Person):
+    """Class inherited from class :class:`Person'.
+    This is a class that takes and keep first name and last name of student.
     Thanks to method 'do_homework' you can check status of homework.
     :param first_name: first name of student
     :param last_name: last name of student"""
 
     def __init__(self, first_name, last_name):
         """Constructor method"""
-        self.first_name = first_name
-        self.last_name = last_name
+        super().__init__(first_name, last_name)
 
     def do_homework(self, homework=None, solution=None, student=None):
         """Method take :class:`Homework' object, :class:`Student' object, solution
@@ -116,15 +126,15 @@ class Student:
             raise DeadlineError("You are late")
 
 
-class Teacher(Student):
-    """Class inherited from class :class:`Student'.This is a class that take
+class Teacher(Person):
+    """Class inherited from class :class:`Person'.This is a class that take
     and keep first name and last name of teacher. Class can pass information
     to :class:'Homework' to create homework object, collect solutions and
     reset results from dictionary.
     :param first_name: first name of teacher
     :param last_name: last name of teacher"""
 
-    homework_done = defaultdict(list)
+    homework_done = defaultdict(set)
 
     def __init__(self, first_name, last_name):
         """Constructor method"""
@@ -151,14 +161,10 @@ class Teacher(Student):
         :rtype: bool
         """
         homework = homeworkresult.homework
-        if (
-            len(homeworkresult.solution) > 5
-            and homeworkresult not in self.homework_done[homework]
-        ):
-            self.homework_done[homework].append(homeworkresult)
+        if len(homeworkresult.solution) > 5:
+            self.homework_done[homework].add(homeworkresult.solution)
             return True
-        else:
-            return False
+        return False
 
     @classmethod
     def reset_results(cls, homework=None):
