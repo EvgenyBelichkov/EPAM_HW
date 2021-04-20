@@ -49,12 +49,15 @@ def content_from_company_page(html, current_rate):
             .find("span")
             .text.lstrip(", "),
             "name": soup.find("span", class_="price-section__label").text.strip(),
-            "price": float(
-                soup.find("span", class_="price-section__current-value").text.replace(
-                    ",", ""
+            "price": round(
+                float(
+                    soup.find(
+                        "span", class_="price-section__current-value"
+                    ).text.replace(",", "")
                 )
-            )
-            * current_rate,
+                * current_rate,
+                1,
+            ),
             "PE": counting_price_earnings(soup),
             "growth": None,
             "potential_profit": counting_potential_profit(soup),
