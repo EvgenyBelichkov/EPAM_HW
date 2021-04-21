@@ -11,9 +11,6 @@ class SizesEnum(metaclass=SimplifiedEnum):
     __keys = ("XL", "L", "M", "S", "XS", "BLACK")
 
 
-print(ColorsEnum.__dict__)
-
-
 def test_correct_work_of_metaclass():
     assert ColorsEnum.RED == "RED"
     assert SizesEnum.XL == "XL"
