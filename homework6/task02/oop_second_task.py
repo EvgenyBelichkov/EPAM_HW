@@ -180,6 +180,6 @@ class Teacher(Person):
 
 
 class DeadlineError(Exception):
-    """Additional Error class """
+    """Additional Error class"""
 
     pass
