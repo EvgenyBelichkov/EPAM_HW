@@ -26,7 +26,7 @@ class KeyValueStorage:
     def __init__(self, file_path):
         self.storage_information = {}
 
-        with open(os.path.join(file_path), "r") as file:
+        with open(file_path, "r") as file:
             for items in file:
                 key, value = items.strip("\n").split("=")
                 if iskeyword(key) or not key.isidentifier():
