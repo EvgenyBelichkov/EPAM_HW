@@ -8,7 +8,7 @@
 HomeworkResult принимает объект автора задания, принимает исходное задание
 и его решение в виде строки
 Атрибуты:
-    homework - для объекта Homework, если передан не этот класс -  выкинуть
+    homework - для объекта Homework, если передан  не этот класс -  выкинуть
     подходящие по смыслу исключение с сообщением:
     'You gave a not Homework object'
     solution - хранит решение ДЗ как строку
@@ -180,6 +180,6 @@ class Teacher(Person):
 
 
 class DeadlineError(Exception):
-    """Additional Error class """
+    """Additional Error class"""
 
     pass
