@@ -31,3 +31,13 @@ def test_iteration_protocol_for_class(creating_instance_class):
     for data in creating_instance_class:
         list_of_presidents.append(data[0])
     assert list_of_presidents == ["Yeltsin", "Trump", "Big Man Tyrone"]
+
+
+def test_class_as_dict(creating_instance_class):
+    creating_instance_class["Lincoln"] = {"age": 89, "country": "USA"}
+    assert len(creating_instance_class) == 4
+
+
+def test_class_as_dict_with_error(creating_instance_class):
+    with pytest.raises(TypeError):
+        creating_instance_class["Lincoln"] = [89, "USA"]

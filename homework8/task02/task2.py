@@ -20,34 +20,48 @@ as database fixture file.
 """
 
 import sqlite3
+from collections.abc import Mapping
+from contextlib import contextmanager
+
+
+@contextmanager
+def connection(database_name):
+    con = sqlite3.connect(database_name)
+    yield con.cursor()
+    con.commit()
+    con.close()
 
 
 class TableData:
-    def __init__(self, database_name="example.sqlite", table_name="presidents"):
+    def __init__(self, database_name, table_name):
         self.database_name = database_name
         self.table_name = table_name
 
     def __len__(self):
-        conn = sqlite3.connect(self.database_name)
-        cursor = conn.cursor()
-        sql_request = f"SELECT COUNT(*) from {self.table_name}"
-        cursor.execute(sql_request)
-        return cursor.fetchone()[0]
+        with connection(self.database_name) as cursor:
+            cursor.execute(f"SELECT COUNT(*) from {self.table_name}")
+            return cursor.fetchone()[0]
 
-    def __getitem__(self, requested_name):
-        conn = sqlite3.connect(self.database_name)
-        cursor = conn.cursor()
-        sql_request = (
-            f"SELECT * from {self.table_name} where name=:name ",
-            {"name": requested_name},
-        )
-        cursor.execute(*sql_request)
-        return cursor.fetchone()
+    def __getitem__(self, item):
+        with connection(self.database_name) as cursor:
+            cursor.execute(
+                f"SELECT * from {self.table_name} where name=:name ", {"name": item}
+            )
+            return cursor.fetchone()
 
     def __contains__(self, item):
         return self[item]
 
     def __iter__(self):
-        conn = sqlite3.connect(self.database_name)
-        cursor = conn.cursor()
-        yield from cursor.execute(f"SELECT * from {self.table_name}")
+        with connection(self.database_name) as cursor:
+            yield from cursor.execute(f"SELECT * from {self.table_name}")
+
+    def __setitem__(self, key, value):
+        if isinstance(value, Mapping):
+            with connection(self.database_name) as cursor:
+                cursor.execute(
+                    f"INSERT INTO {self.table_name}(name, age, country) VALUES(?, ?, ?)",
+                    (key, value["age"], value["country"]),
+                )
+        else:
+            raise TypeError
