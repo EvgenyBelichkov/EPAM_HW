@@ -8,6 +8,12 @@ def test_zero_division_error_with_class():
         10 / 0
 
 
+def test_raising_index_error_with_class():
+    with pytest.raises(ZeroDivisionError):
+        with Suppressor(IndexError):
+            10 / 0
+
+
 def test_suppressing_possible_errors_with_generator():
     with suppressor(ZeroDivisionError):
         10 / 0

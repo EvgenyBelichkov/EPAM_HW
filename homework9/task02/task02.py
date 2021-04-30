@@ -9,13 +9,15 @@ from contextlib import contextmanager
 
 class Suppressor:
     def __init__(self, name_exception):
+        self.name_exception = name_exception
         pass
 
     def __enter__(self):
         pass
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        return True
+        if exc_type == self.name_exception:
+            return True
 
 
 @contextmanager
