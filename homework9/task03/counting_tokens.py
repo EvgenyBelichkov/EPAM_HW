@@ -32,14 +32,17 @@ def collecting_data(files):
     return data
 
 
+def default_tokenizer(line):
+    return str.split(line, maxsplit=0)
+
+
 def universal_file_counter(
-    dir_path: Path, file_extension: str, tokenizer: Optional[Callable] = None
+    dir_path: Path,
+    file_extension: str,
+    tokenizer: Optional[Callable] = default_tokenizer,
 ) -> int:
     result = 0
     files = collecting_required_files(dir_path, file_extension)
-    if tokenizer:
-        for i in collecting_data(files):
-            result += len(tokenizer(i))
-        return result
-    else:
-        return len(collecting_data(files))
+    for i in collecting_data(files):
+        result += len(tokenizer(i))
+    return result
